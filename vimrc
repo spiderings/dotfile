@@ -1,28 +1,64 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim Plug
+" Maintainer: 
+"       Amir Salihefendic
+"       http://amix.dk - amix@amix.dk
+"
+" Version: 
+"       5.0 - 29/05/12 15:43:36
+"
+" Blog_post: 
+"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
+"
+" Awesome_version:
+"       Get this config, nice color schemes and lots of plugins!
+"
+"       Install the awesome version from:
+"
+"           https://github.com/amix/vimrc
+"
+" Syntax_highlighted:
+"       http://amix.dk/vim/vimrc.html
+"
+" Raw_version: 
+"       http://amix.dk/vim/vimrc.txt
+"
+" Sections:
+"    -> General
+"    -> VIM user interface
+"    -> Colors and Fonts
+"    -> Files and backups
+"    -> Text, tab and indent related
+"    -> Visual mode related
+"    -> Moving around, tabs and buffers
+"    -> Status line
+"    -> Editing mappings
+"    -> vimgrep searching and cope displaying
+"    -> Spell checking
+"    -> Misc
+"    -> Helper functions
+"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-" status
-Plug 'bling/vim-airline'
+" ruby
+Plug 'vim-ruby/vim-ruby'
+
+" util
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
 
 " color
 Plug 'altercation/vim-colors-solarized'
 
-" program
-Plug 'pangloss/vim-javascript'
-Plug 'tpope/vim-rails'
-Plug 'vim-ruby/vim-ruby'
-Plug 'mxw/vim-jsx'
-
-" python
-Plug 'davidhalter/jedi-vim'
-
-" Add plugins to &runtimepath
+" Initialize plugin system
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -69,9 +105,9 @@ set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-else
     set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
 "Always show current position
@@ -123,34 +159,38 @@ set foldcolumn=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Enable syntax highlighting
+
 syntax enable 
+
+" solarized theme
 set background=dark
-colorscheme solarized
 let g:solarized_termcolors=256
-if has('gui_running')
-  set background=light
-else
-  set background=dark
-endif
+colorscheme solarized
 
-try
-    " colorscheme desert
-    " colorscheme solarized
-    " let g:solarized_termcolors=256
-catch
-endtry
+" gruvbox theme
+" set background=dark
+" colorscheme gruvbox
 
-set background=dark
+" molokai theme
+" let g:molokai_original = 1
+" let g:rehash256 = 1
+" colorscheme molokai
+
+"default theme
+"set background=dark
+"try
+"  colorscheme desert
+"catch
+"endtry
 
 " Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
+"if has("gui_running")
+"    set guioptions-=T
+"    set guioptions-=e
+"    set t_Co=256
+"    set guitablabel=%M\ %t
+"endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -178,6 +218,9 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
+" set shiftwidth=4
+" set tabstop=4
+
 set shiftwidth=2
 set tabstop=2
 
@@ -416,10 +459,6 @@ endfunction
 "   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 "endif
 
-""" react
-let g:jsx_ext_required = 0
-let g:jsx_pragma_required = 1
-
-""" my arrage
+""" my arrange
 inoremap jk <ESC>
 
